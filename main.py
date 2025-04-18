@@ -1,50 +1,45 @@
-import pyautogui
+from PIL import Image, ImageGrab
+import cv2 as cv
+import numpy as np
 import time
-import sys
-import random
 
-CONFIDENCE_OF_FINDING_CROP = 0.7
-COUNT_DOWN_SECONDS_BEFORE_START = 10
-SECONDS_BEETWEEN_ACTIONS = 1
-grownCropFilePath = './imgs/wheatGrown.png'
+class MainAgent:
+    def __init__(self)-> None:
+        self.currentImg = None
+        self.currentImgHSV = None
+        print("Main Agent Setup Complete")
 
-def main():
-    #Initialized pyautogui 
-    pyautogui.FAILSAFE = True
-    #Countdown timer before starting the app
-    countDownBeforeStart(COUNT_DOWN_SECONDS_BEFORE_START)
+    
+def update_screen(agent):
+    agent.currentImg = ImageGrab.grab()
+    agent.currentImg = np.array(agent.currentImg)
+    agent.currentImg = cv.cvtColor(agent.currentImg,cv.COLOR_BGR2RGB)
+    agent.currentImgHSV = cv.cvtColor(agent.currentImg,cv.COLOR_RGB2HSV)
+    cv.imshow("Vision",agent.currentImgHSV)
 
-    #Finds location grownCrop on the screen
-    PosX,PosY = findLocationGrownCropOnTheScreen()
-    pyautogui.click(PosX,PosY)
-    time.sleep(random.randint(1,3))
-    pyautogui.moveTo(PosX-120,PosY-100)
-
-
-    waitForNextAction(SECONDS_BEETWEEN_ACTIONS)
-
-
-
-
-
-def countDownBeforeStart(seconds = 10):
-    print(f"Uygulama {seconds} saniye sonra basliyor",end="")
-    for i in range(0,seconds):
-        print(".",end="")
-        sys.stdout.flush()#forces to appear dots in real time
-        time.sleep(1)
-    print("Basla")
-
-def findLocationGrownCropOnTheScreen():
-    wheatPositionOnScreen = pyautogui.locateOnScreen(grownCropFilePath,confidence=CONFIDENCE_OF_FINDING_CROP,grayscale=True)
-    wheatPositionOnScreen = pyautogui.center(wheatPositionOnScreen)
-    wheatPosX,wheatPosY = wheatPositionOnScreen
-    return wheatPosX,wheatPosY
- 
-
-def waitForNextAction(seconds=1):
-    time.sleep(seconds)    
-
+    cv.waitKey(1)
+       
+def print_menu():
+    print("Welcome to the wheater bot for Hay Day.")
+    print("Enter a key to choose option shown below.")
+    print("\tw --> Start the cropping bot.")
+    print("\tq --> Exit the app.")
+    
 
 if __name__=="__main__":
-    main()
+    print_menu()
+    
+    while True:
+        userInput = input()
+        userInput = str.lower(userInput).strip()
+        if userInput=="w":
+            mainAgent = MainAgent()
+            update_screen(mainAgent)
+        elif userInput=="q":
+            print(f"You have pressed the {userInput} button.Exiting app...")
+            break
+        else:
+            print(f"Key {userInput} is not a valid character.")
+    
+    
+    
