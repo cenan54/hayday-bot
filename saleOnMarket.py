@@ -3,15 +3,39 @@ import pyautogui
 import interactionFunctions
 
 
-
 marketOnStreet = cv.imread("./imgs/marketOnStreet.png")
 colorModeMarketOnStreet = "rgb"
 thresholdMarketOnStreet = 0.6
 
+crateEmptyMarket = cv.imread("./imgs/crateEmptyMarket.png")
+colorModeCrateEmptyMarket = "hsv"
+thresholdCrateEmptyMarket = 0.7
+
 soldItem = cv.imread("./imgs/sold.png")
-colorModeSoldItem = "rgb"
+colorModeSoldItem = "hsv"
 thresholdSoldItem = 0.8
 
+wheatIconOnShop = cv.imread("./imgs/wheatIconOnShop.png")
+colorModeWheatIconOnShop = "rgb"
+thresholdWheatIconOnShop = 0.6
+
+wheatIncreaseButton = cv.imread("./imgs/wheatIncreaseQuantityButton.png")
+colorWheatIncreaseButton = "rgb"
+thresholdWheatIncreaseButton = 0.7
+
+priceDecreaseButton = cv.imread("./imgs/priceDecreaseButton.png")
+colorModePriceDecreaseButton = "rgb"
+thresholdPriceDecreaseButton = 0.7
+
+putOnSaleButton = cv.imread("./imgs/putOnSaleButton.png")
+colorModePutOnSaleButton = "rgb"
+thresholdPutOnSaleButton = 0.7
+
+closeButton = cv.imread("./imgs/closeButton.png")
+colorModeCloseButton = "rgb"
+thresholdCloseButton = 0.7
+
+interactionFunctions.waitSecondsInRange(5,6,1)#TEMPORARY CODE  Delete this codeeeee
 
 def clickOnStreetMarket():
     marketLocation=interactionFunctions.findTheLocation(marketOnStreet,colorModeMarketOnStreet,thresholdMarketOnStreet)
@@ -19,7 +43,6 @@ def clickOnStreetMarket():
     interactionFunctions.humanLikeClick()
 
 
-interactionFunctions.waitSecondsInRange(5,6,1)#TEMPORARY CODE  Delete this codeeeee
 
 def collectAllSoldItems():
     while True:
@@ -32,12 +55,46 @@ def collectAllSoldItems():
             interactionFunctions.humanLikeClick()
         interactionFunctions.waitSecondsInRange(1,2,1)
 
+def TEST():
+    crateEmptyLoc = interactionFunctions.findTheLocation(crateEmptyMarket,colorModeCrateEmptyMarket,thresholdCrateEmptyMarket)
+    if crateEmptyLoc == None:
+        print("There is no empty crate on screen!")
+        closeButtonLoc = interactionFunctions.findTheLocation(closeButton,colorModeCloseButton,thresholdCloseButton)
+        pyautogui.moveTo(closeButtonLoc[0],closeButtonLoc[1])
+        interactionFunctions.humanLikeClick()
+    else:
+        pyautogui.moveTo(crateEmptyLoc)
+        interactionFunctions.humanLikeClick()
+        interactionFunctions.waitSecondsInRange(1,1,1)
+        wheatIconLoc = interactionFunctions.findTheLocation(wheatIconOnShop,colorModeWheatIconOnShop,thresholdWheatIconOnShop)
+        if wheatIconLoc == None:
+            print("There is no wheat on screen or on your silo!")
+            #first close x
+            closeButtonLoc = interactionFunctions.findTheLocation(closeButton,colorModeCloseButton,thresholdCloseButton)
+            pyautogui.moveTo(closeButtonLoc[0],closeButtonLoc[1])
+            interactionFunctions.humanLikeClick()
+            #second close x
+            closeButtonLoc = interactionFunctions.findTheLocation(closeButton,colorModeCloseButton,thresholdCloseButton)
+            pyautogui.moveTo(closeButtonLoc[0],closeButtonLoc[1])
+            interactionFunctions.humanLikeClick()
+        else:
+            pyautogui.moveTo(wheatIconLoc[0]+10,wheatIconLoc[1])
+            interactionFunctions.humanLikeClick()
+            interactionFunctions.waitSecondsInRange(1,2,1)
+            wheatIncreaseButtonLoc = interactionFunctions.findTheLocation(wheatIncreaseButton,colorWheatIncreaseButton,thresholdWheatIncreaseButton)
+            pyautogui.moveTo(wheatIncreaseButtonLoc[0]+100,wheatIncreaseButtonLoc[1]+23)
+            for i in range(0,11):
+                interactionFunctions.humanLikeClick()
+            priceDecreaseButtonLoc = interactionFunctions.findTheLocation(priceDecreaseButton,colorModePriceDecreaseButton,thresholdPriceDecreaseButton)
+            pyautogui.moveTo(priceDecreaseButtonLoc[0]+20,priceDecreaseButtonLoc[1]+20)
+            interactionFunctions.humanLikeClick()
+            interactionFunctions.waitSecondsInRange(1,1,1)
+            putOnSaleButtonLoc = interactionFunctions.findTheLocation(putOnSaleButton,colorModePutOnSaleButton,thresholdPutOnSaleButton)
+            pyautogui.moveTo(putOnSaleButtonLoc[0],putOnSaleButtonLoc[1])
+            interactionFunctions.humanLikeClick()
 
 
 #loop for create new sales
 #put advertise one of them wheat
 #wait 1 minute
-
-
-
 
