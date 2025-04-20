@@ -4,6 +4,7 @@ import time
 import numpy as np
 import pyautogui
 import random
+import keyboard
 
 
 sickle = cv.imread("./imgs/sickle.png")
@@ -63,30 +64,44 @@ def main():
         pyautogui.moveTo(sickleLocX,sickleLocY)
         pyautogui.mouseDown()
         pyautogui.moveTo(xLoc,yLoc,round(random.uniform(1,2),1))
-        pyautogui.move(400,-270,round(random.uniform(2,5),1))
+        pyautogui.move(400,-180,round(random.uniform(2,5),1))
         pyautogui.mouseUp()
         time.sleep(round(random.uniform(1,2),1))
 
     
-  
+    print("Entering harvesting loop. Press q to exit.")
+    while True:
 
-    locWheat = findTheLocation(grownWheat,colorModeGrownWheat,thresholdGrownWheat)
-    if locWheat == None:
-        print("There is no grown wheat on screen!")
-    else:
-        pyautogui.moveTo(locWheat)
-        humanLikeClick()
-        time.sleep(round(random.uniform(1,2),1))
-        harvest(locWheat[0],locWheat[1])
-    time.sleep(3)
+        locWheat = findTheLocation(grownWheat,colorModeGrownWheat,thresholdGrownWheat)
+        if locWheat == None:
+            print("There is no grown wheat on screen!")
+            break
+        else:
+            pyautogui.moveTo(locWheat[0]+50,locWheat[1]+30)
+            humanLikeClick()
+            time.sleep(round(random.uniform(1,2),1))
+            harvest(locWheat[0]+50,locWheat[1]+30)
+        #wait for the disappear xp and wheat icons after harvest
+        time.sleep(5)
+        if keyboard.is_pressed("q"):
+            print("Pressed q quiting harvest loop.")
+            break
 
-    locEmptyField = findTheLocation(emptyField,colorModeEmptyField,thresholdEmptyField)
-    if locEmptyField == None:
-        print("There is no empty field on screen!")
-    else:
-        pyautogui.moveTo(locEmptyField)
+    print("Harvest proccess ended.")
 
-    time.sleep(3)
+    def plantWheat():
+        locEmptyField = findTheLocation(emptyField,colorModeEmptyField,thresholdEmptyField)
+        if locEmptyField == None:
+            print("There is no empty field on screen!")
+        else:
+            pyautogui.moveTo(locEmptyField)
+
+        time.sleep(3)
+
+
+
+
+
 
     # pyautogui.click()
     # time.sleep(round(random.uniform(1,3),1))
