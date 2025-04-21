@@ -35,11 +35,11 @@ def harvestAllCrops(crop:cv.typing.MatLike,colorModeCrop:str,thresholdGrownCrop:
         else:
             pyautogui.moveTo(locCrop[0]+50,locCrop[1]+30)
             interactionFunctions.humanLikeClick()
-            interactionFunctions.waitSecondsInRange(1,2,1)
+            interactionFunctions.waitSecondsInRange(1,1,1)
             harvest(locCrop[0]+50,locCrop[1]+30)
-            interactionFunctions.waitSecondsInRange(1,2,1)
+            interactionFunctions.waitSecondsInRange(1,1,1)
         #wait for the disappear xp and wheat icons after harvest
-        interactionFunctions.waitSecondsInRange(3,4,1)
+        interactionFunctions.waitSecondsInRange(2,3,1)
     
     print("Harvest proccess ended.")
 

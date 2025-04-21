@@ -17,6 +17,7 @@ def plantCrop(xLoc,yLoc,cropIcon:cv.typing.MatLike,cropColorMode,cropThreshold):
     locationCropIcon = interactionFunctions.findTheLocation(cropIcon,cropColorMode,cropThreshold)
     if locationCropIcon == None:
         print("There is no wheat icon found on screen!")
+        return
     else:
         pyautogui.moveTo(locationCropIcon[0],locationCropIcon[1])
         pyautogui.mouseDown()
