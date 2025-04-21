@@ -50,19 +50,23 @@ pip install -r requirements.txt
 ### Design Your Farm
 #### 1. Distance Of Field To Marketplace
 The fields should be positioned neither too close nor too far from the market. The field's UI may overlap with the roadside, which can obstruct vision detection and prevent the shop from being visible. As shown below.
+---
 ![UI Overlap](./readme_imgs/badExampleNextToShop.png)
 
 #### 2. Fields Should Be Visible
 There should be no objects in front of the fields, ensuring they remain clearly visible on the screen. Bad examples shown below.
+---
 ![Field Behind The Shop](./readme_imgs/badExampleBehindShop.png)
 ![Field Behind The Object](./readme_imgs/badExampleBehindObjects.png)
 
 #### 3. Field Rotation
 The lines on the fields should be aligned parallel from the top-left corner to the bottom-right corner, as shown in the image. Correct rotation shown below.
+---
 ![Correct Rotation](./readme_imgs/correctRotation.png)
 
 #### Good Example Design Setup
 Before starting the bot, make sure your farm layout matches the example shown. The roadside market shouldn’t be too close or too far away. There should be nothing blocking its view, so it’s clearly visible. The fields should be arranged diagonally from the top-left corner to the bottom-right corner. This design is optimal for the bot, and new fields can be added through the shop.
+---
 ![Good Example](./readme_imgs/goodExample.png)
 
 ## Starting Bot
